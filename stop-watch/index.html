@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="stopwatch">
+        <div class="display">00:00:00</div>
+        <div class="controls">
+            <button class="start">Start</button>
+            <button class="stop">Stop</button>
+            <button class="reset">Reset</button>
+        </div>
+    </div>
+
+
+    <script>
+        const display = document.querySelector('.display');
+        const startBtn = document.querySelector('.start');
+        const stopBtn = document.querySelector('.stop');
+        const resetBtn = document.querySelector('.reset');
+        let timer;
+        let seconds = 0, minutes = 0, hours = 0;
+
+        function startTimer() {
+            timer = setInterval(() => {
+                seconds++;
+                if (seconds >= 60) {
+                    seconds = 0;
+                    minutes++;
+                    if (minutes >= 60) {
+                        minutes = 0;
+                        hours++;
+                    }
+                }
+                display.textContent = formatTime(hours) + ':' + formatTime(minutes) + ':' + formatTime(seconds);
+            }, 1000);
+            startBtn.disabled = true;
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+            startBtn.disabled = false;
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            startBtn.disabled = false;
+            seconds = 0;
+            minutes = 0;
+            hours = 0;
+            display.textContent = '00:00:00';
+        }
+
+        function formatTime(time) {
+            return time < 10 ? '0' + time : time;
+        }
+
+        startBtn.addEventListener('click', startTimer);
+        stopBtn.addEventListener('click', stopTimer);
+        resetBtn.addEventListener('click', resetTimer);
+    </script>
+
+</body>
+
+</html>
