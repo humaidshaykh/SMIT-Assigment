@@ -6,48 +6,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo App</title>
 </head>
+<style>
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f5f5f5;
+    }
+
+    .container {
+        text-align: center;
+    }
+
+    .todo-list {
+        width: 300px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        background-color: #fff;
+    }
+
+    .todo-list input[type="text"] {
+        width: calc(100% - 80px);
+        padding: 8px;
+        margin-bottom: 10px;
+    }
+
+    .todo-list button {
+        padding: 8px 15px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .todo-list button:hover {
+        background-color: #45a049;
+    }
+
+    .todo-list ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .todo-list ul li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .todo-list ul li:last-child {
+        border-bottom: none;
+    }
+
+    .todo-list ul li .task {
+        flex-grow: 1;
+    }
+
+    .todo-list ul li .delete-btn {
+        background-color: #f44336;
+        color: #fff;
+        border: none;
+        padding: 4px 8px;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .todo-list ul li .delete-btn:hover {
+        background-color: #d32f2f;
+    }
+</style>
 
 <body>
-    <h1> <b> <i>Add your today todo list</b> </i></h1>
-    <input type="text" placeholder="enter todo" id="todo_inp" required>
-    <button onclick="addTodo()">Add Todo</button>
-    <ol></ol>
+
+    <div class="container">
+        <h1>ToDo App</h1>
+        <div class="todo-list">
+            <input type="text" placeholder="Add a new task" id="todo_inp" required>
+            <button id="click" onclick="addTodo()">Add</button>
+            <ul>
+
+            </ul>
+        </div>
+    </div>
 
     <script>
 
         const todoInput = document.querySelector('#todo_inp');
-        const ol = document.querySelector('ol');
+        const ol = document.querySelector('ul');
+        const click = document.querySelector('#click');
 
         const arr = [];
 
-        function addTodo() {
-            arr.push(todoInput.value);
-            console.log(arr);
-            renderTodo();
-            todoInput.value = '';
-        }
+        click.addEventListener("click", function () {
+            if (!todoInput.value == "") {
+                arr.push(todoInput.value);
+                console.log(arr);
+                renderTodo();
+                todoInput.value = '';
+            } else {
+                alert("Please fill input");
+            }
+        })
 
         function renderTodo() {
             ol.innerHTML = '';
             for (let i = 0; i < arr.length; i++) {
                 ol.innerHTML += `
-                <li> ${arr[i]}
-                    <button onclick="deleteTodo(${i})">delete</button>
+                <li>&#8226; ${arr[i]}
+                    <div>
+                        <button onclick="deleteTodo(${i})">delete</button>
                     <button onclick="editTodo(${i})">edit</button>
+                        </div>
                     </li>
                     `;
             }
         }
-
-
-
 
         function deleteTodo(index) {
             arr.splice(index, 1);
             renderTodo();
         }
 
-        
+        function editTodo(index) {
+            const updatedVal = prompt('Enter Updated Value');
+            arr.splice(index, 1, updatedVal);
+            renderTodo();
+        }
 
     </script>
 </body>
