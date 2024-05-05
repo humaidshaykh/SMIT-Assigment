@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+</head>
+
+<body>
+    <h1> <b> <i>Add your today todo list</b> </i></h1>
+    <input type="text" placeholder="enter todo" id="todo_inp" required>
+    <button onclick="addTodo()">Add Todo</button>
+    <ol></ol>
+
+    <script>
+
+        const todoInput = document.querySelector('#todo_inp');
+        const ol = document.querySelector('ol');
+
+        const arr = [];
+
+        function addTodo() {
+            arr.push(todoInput.value);
+            console.log(arr);
+            renderTodo();
+            todoInput.value = '';
+        }
+
+        function renderTodo() {
+            ol.innerHTML = '';
+            for (let i = 0; i < arr.length; i++) {
+                ol.innerHTML += `
+                <li> ${arr[i]}
+                    <button onclick="deleteTodo(${i})">delete</button>
+                    <button onclick="editTodo(${i})">edit</button>
+                    </li>
+                    `;
+            }
+        }
+
+
+
+
+        function deleteTodo(index) {
+            arr.splice(index, 1);
+            renderTodo();
+        }
+
+        
+
+    </script>
+</body>
+
+</html>
