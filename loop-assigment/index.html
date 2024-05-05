@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Loops Assigment</title>
 </head>
+
 <body>
+    <button style="padding: 20px;" onclick="run()">Click here to start</button>
     <script>
-        let tableNumber = +prompt("Which Table You Want");
-        let tableStartPoint = +prompt("Table Start Point");
-        let tableendPoint = +prompt("Table End Point");
+        function run() {
+            let tableNumber = +prompt("Which Table You Want");
+            let tableStartPoint = +prompt("Table Start Point");
+            let tableendPoint = +prompt("Table End Point");
 
-        for (let i = tableStartPoint; i <= tableendPoint; i++) {
-            document.write(`${tableNumber} X ${i} = ${tableNumber*i} </br>`);
+            for (let i = tableStartPoint; i <= tableendPoint; i++) {
+                document.write(`${tableNumber} X ${i} = ${tableNumber * i} </br>`);
+            }
         }
-
-
     </script>
 </body>
+
 </html>
